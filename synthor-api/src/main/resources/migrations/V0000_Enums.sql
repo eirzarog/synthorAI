@@ -1,0 +1,9 @@
+-- Create enum types
+CREATE TYPE user_status AS ENUM ('ACTIVE', 'INACTIVE', 'SUSPENDED', 'DELETED');
+CREATE TYPE user_role AS ENUM ('ADMIN', 'MODERATOR', 'USER', 'GUEST');
+CREATE TYPE subscription_status AS ENUM ('ACTIVE', 'CANCELLED', 'EXPIRED', 'TRIAL', 'SUSPENDED');
+CREATE TYPE subscription_tier AS ENUM ('FREE', 'BASIC', 'PREMIUM', 'ENTERPRISE');
+CREATE TYPE chat_status AS ENUM ('ACTIVE', 'ARCHIVED', 'DELETED');
+CREATE TYPE created_by AS ENUM ('USER', 'AI', 'SYSTEM');
+CREATE TYPE message_type AS ENUM ('TEXT', 'IMAGE', 'FILE', 'AUDIO', 'VIDEO');
+
