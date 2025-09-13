@@ -14,4 +14,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByChatIdOrderByCreatedAtAsc(Long chatId);
     List<Message> findByChatIdAndMessageSender(Long chatId, MessageSender sender);
     long countByChatId(Long chatId);
+
+
 }

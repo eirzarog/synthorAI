@@ -1,13 +1,15 @@
 package dev.eirzarog.synthor.api.services;
 
+import dev.eirzarog.synthor.api.entities.criteria.UserCriteria;
 import dev.eirzarog.synthor.api.entities.dtos.UserDTO;
 import dev.eirzarog.synthor.api.entities.dtos.mappers.UserMapper;
-import dev.eirzarog.synthor.api.entities.dtos.requests.user.CreateUserRequestDTO;
 import dev.eirzarog.synthor.api.exceptions.GlobalException;
 import dev.eirzarog.synthor.api.entities.User;
 
 import dev.eirzarog.synthor.api.entities.dtos.requests.user.UpdateUserRequestDTO;
 import dev.eirzarog.synthor.api.repositories.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +21,9 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,11 +35,13 @@ public class UserService   {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final EntityManager entityManager;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, EntityManager entityManager ) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.entityManager = entityManager;
         logger.debug("UserService initialized with UserRepository.");
     }
 
@@ -81,6 +87,30 @@ public class UserService   {
             throw new IllegalArgumentException("Invalid date format. Use yyyy-MM-dd");
         }
     }
+
+
+    public List<UserDTO> findUsersByCriteria(UserCriteria criteria) {
+        StringBuilder queryBuilder = new StringBuilder("SELECT u FROM User u WHERE 1=1");
+        Map<String, Object> params = new HashMap<>();
+
+        if (criteria.getUsername() != null) {
+            queryBuilder.append(" AND u.username = :username");
+            params.put("username", criteria.getUsername());
+        }
+
+        if (criteria.getEmail() != null) {
+            queryBuilder.append(" AND u.email = :email");
+            params.put("email", criteria.getEmail());
+        }
+
+        TypedQuery<User> query = entityManager.createQuery(queryBuilder.toString(), User.class);
+        params.forEach(query::setParameter);
+
+        return query.getResultList().stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 
 //    public User createUser(CreateUserRequestDTO request) throws GlobalException {
 //

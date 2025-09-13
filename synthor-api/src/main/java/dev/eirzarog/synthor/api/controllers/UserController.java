@@ -1,11 +1,13 @@
 package dev.eirzarog.synthor.api.controllers;
 
 import dev.eirzarog.synthor.api.entities.User;
+import dev.eirzarog.synthor.api.entities.criteria.UserCriteria;
 import dev.eirzarog.synthor.api.entities.dtos.UserDTO;
 import dev.eirzarog.synthor.api.entities.dtos.requests.user.CreateUserRequestDTO;
 import dev.eirzarog.synthor.api.entities.dtos.requests.user.UpdateUserRequestDTO;
 import dev.eirzarog.synthor.api.enumerators.UserRole;
 import dev.eirzarog.synthor.api.services.UserService;
+import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +31,27 @@ public class UserController {
 
     private final UserService userService;
 
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
         logger.debug("UserController initialized with UserService.");
+    }
+
+
+
+//    /users?username=eirzarog → filters by username
+//    /users?email=admin@example.com&username=bob → filters by both
+    @GetMapping ("/users/filter")
+    public List<UserDTO> getUsersByCriteria(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String email
+    ) {
+        UserCriteria criteria = new UserCriteria();
+        criteria.setUsername(username);
+        criteria.setEmail(email);
+
+        return userService.findUsersByCriteria(criteria);
     }
 
     // GET http://localhost:8080/users/count?date=2025-09-13
@@ -45,6 +64,8 @@ public class UserController {
     // Jackson sees the User objects and thinks:
     // "I need to serialize everything, including orders and department"
     // This triggers additional database queries! Fixes N+1 queries
+
+
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(Authentication authentication) {
