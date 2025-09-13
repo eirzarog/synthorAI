@@ -1,12 +1,11 @@
 package dev.eirzarog.synthor.api.services;
 
-import dev.eirzarog.synthor.api.enums.UserRole;
-import dev.eirzarog.synthor.api.enums.UserStatus;
+import dev.eirzarog.synthor.api.entities.dtos.UserDTO;
+import dev.eirzarog.synthor.api.entities.dtos.mappers.UserMapper;
 import dev.eirzarog.synthor.api.exceptions.GlobalException;
-import dev.eirzarog.synthor.api.models.User;
-import dev.eirzarog.synthor.api.models.dtos.requests.UserCreateRequest;
-import dev.eirzarog.synthor.api.models.dtos.requests.UserUpdateRequest;
-import dev.eirzarog.synthor.api.models.dtos.responses.UserResponse;
+import dev.eirzarog.synthor.api.entities.User;
+import dev.eirzarog.synthor.api.entities.dtos.requests.user.CreateUserRequestDTO;
+import dev.eirzarog.synthor.api.entities.dtos.requests.user.UpdateUserRequestDTO;
 import dev.eirzarog.synthor.api.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -14,13 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -30,10 +26,12 @@ public class UserService   {
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
         logger.debug("UserService initialized with UserRepository.");
     }
 
@@ -51,37 +49,40 @@ public class UserService   {
         return !userRepository.existsByEmail(email);
     }
 
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public Optional<User> getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }
 
-    public User createUser(UserCreateRequest request) throws GlobalException {
+//    public User createUser(CreateUserRequestDTO request) throws GlobalException {
+//
+//        logger.info("Creating new user with username: {}", request.getUsername());
+//
+//        // Create new user
+//        User user = User.builder()
+//                .username(request.getUsername())
+//                .email(request.getEmail())
+////              .password(passwordEncoder.encode(request.getPassword()))
+//                .password(request.getPassword())
+//        // Set defaults for null values or use @builder.Default in entity
+////                .status(request.getStatus() != null ? UserStatus.valueOf(request.getStatus()) : UserStatus.ACTIVE)
+////                .role(request.getRole() != null ? UserRole.valueOf(request.getRole()) : UserRole.USER)
+//                .build();
+//
+//        User savedUser = userRepository.save(user);
+//        logger.info("User created successfully with username: {}", savedUser.getUsername());
+//
+//        return savedUser;
+//    }
 
-        logger.info("Creating new user with username: {}", request.getUsername());
 
-        // Create new user
-        User user = User.builder()
-                .username(request.getUsername())
-                .email(request.getEmail())
-//              .password(passwordEncoder.encode(request.getPassword()))
-                .password(request.getPassword())
-        // Set defaults for null values or use @builder.Default in entity
-//                .status(request.getStatus() != null ? UserStatus.valueOf(request.getStatus()) : UserStatus.ACTIVE)
-//                .role(request.getRole() != null ? UserRole.valueOf(request.getRole()) : UserRole.USER)
-                .build();
-
-        User savedUser = userRepository.save(user);
-        logger.info("User created successfully with username: {}", savedUser.getUsername());
-
-        return savedUser;
-    }
-
-
-    public User updateUser(Long id, UserUpdateRequest request) throws GlobalException {
+    public User updateUser(Long id, UpdateUserRequestDTO request) throws GlobalException {
 
         logger.info("Updating user with username: {}", id);
 

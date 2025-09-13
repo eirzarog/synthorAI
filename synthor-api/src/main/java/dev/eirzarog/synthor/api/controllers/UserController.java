@@ -1,18 +1,22 @@
 package dev.eirzarog.synthor.api.controllers;
 
-import dev.eirzarog.synthor.api.models.User;
-import dev.eirzarog.synthor.api.models.dtos.requests.UserCreateRequest;
-import dev.eirzarog.synthor.api.models.dtos.requests.UserUpdateRequest;
+import dev.eirzarog.synthor.api.entities.User;
+import dev.eirzarog.synthor.api.entities.dtos.UserDTO;
+import dev.eirzarog.synthor.api.entities.dtos.requests.user.CreateUserRequestDTO;
+import dev.eirzarog.synthor.api.entities.dtos.requests.user.UpdateUserRequestDTO;
+import dev.eirzarog.synthor.api.enumerators.UserRole;
 import dev.eirzarog.synthor.api.services.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 //@RequestMapping("/users")
@@ -30,26 +34,58 @@ public class UserController {
     }
 
 
+    // Avoiding endpoint returns simply List<User>
+    // Jackson sees the User objects and thinks:
+    // "I need to serialize everything, including orders and department"
+    // This triggers additional database queries! Fixes N+1 queries
+
+    // Get all users, Authentication object as parameter we can make checks with the current login user
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAll());
+    public ResponseEntity<List<UserDTO>> getAllUsers(Authentication authentication) {
+
+        // Get the username from the authentication object for the logged-in user
+       User loggedInUser = (User) authentication.getPrincipal();
+
+        // status code unauthorised 401, user not found
+
+        if (loggedInUser.getRole() != UserRole.ADMIN) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // status code forbidden 403
+        }
+
+//      Did you JOIN FETCH a collection? Try adding DISTINCT.
+//      Are your relationships bidirectional? Break the loop with Jackson annotations.
+//      Consider switching to Set<> or returning DTOs for complete control.
+//      That combination will eliminate both the repeated rows on the JPA side and the nested loops on the JSON side.
+
+
+        return ResponseEntity.ok(userService.getAllUsers()); // status code ok 200
     }
 
+    // Get user by username
     @GetMapping("users/{username}")
-    public ResponseEntity<Optional<User>> getUserByUsername(@PathVariable String username) {
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody UserCreateRequest request) {
-        return ResponseEntity.ok(userService.createUser(request));
-    }
+//    // Create user
+//    @PostMapping("/users")
+//    public ResponseEntity<User> createUser(@Valid @RequestBody CreateUserRequestDTO request) {
+//        return ResponseEntity.ok(userService.createUser(request));
+//    }
 
+    // Login user
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login() {
+//        return ResponseEntity.ok("Login successful");
+//    }
+
+    // Update user by Id
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest request) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequestDTO request) {
         return ResponseEntity.ok(userService.updateUser(id, request));
     }
 
+    // Delete user by Id
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
@@ -104,7 +140,6 @@ public class UserController {
         if (!(isAdmin || isSelf)) {
             throw new GlobalException(HttpStatus.FORBIDDEN, "You are not allowed to access this resource.");
         }
-
         return userService.getUserByUsername(username);
     }
     */

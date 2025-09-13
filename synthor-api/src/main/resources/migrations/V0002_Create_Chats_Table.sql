@@ -1,30 +1,22 @@
 
 CREATE TABLE IF NOT EXISTS public.chats (
-                                            id BIGSERIAL PRIMARY KEY,
-                                            title TEXT DEFAULT 'Untitled',
-                                            description TEXT,
-                                            user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-                                            ai_model_id BIGINT  REFERENCES ai_models(id),
-                                            system_prompt TEXT,
+                                            id BIGSERIAL,
+                                            user_id BIGINT NOT NULL,
+                                            title TEXT,
                                             status chat_status DEFAULT 'ACTIVE',
                                             is_archived BOOLEAN DEFAULT FALSE,
-                                            message_count INTEGER DEFAULT 0,
-                                            total_tokens INTEGER DEFAULT 0,
-                                            last_message_at TIMESTAMP WITH TIME ZONE,
-    -- Inherited from BaseModel
-                                            created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                            updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    -- Inherited from BaseEntity
+                                            created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                                            updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     -- Inherited from SoftDeletableModel
-                                            deleted BOOLEAN DEFAULT FALSE NOT NULL
+                                            deleted BOOLEAN DEFAULT FALSE,
+
+                                            PRIMARY KEY (id),
+                                            FOREIGN KEY (user_id) REFERENCES public.users (id)
 );
 
--- Optional: Index on updated_at for sorting or recent activity
+-- Index on updated_at for sorting or recent activity
 CREATE INDEX idx_chats_updated_at ON public.chats(updated_at DESC);
-
-
-
-
-
 
 INSERT INTO public.chats (user_id, title)
 VALUES ((SELECT id FROM public.users WHERE email = 'john_doe@example.com'), 'Daily Standup'),
