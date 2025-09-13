@@ -39,18 +39,18 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
     long countByUserIdAndDeletedFalseAndIsArchivedFalse(Long userId);
 
 
-    //    @Query(nativeQuery = true,
-//            value = "SELECT c.* " +
-//                    "FROM public.chats c " +
-//                    "   inner join public.users u on c.created_by = u.id " +
-//                    "WHERE (:userId is null or c.created_by = :userId) AND " +
-//                    "   (:username is null or u.username = :username) and " +
-//                    "   (CAST(:from AS timestamp) is null or c.created_at >= :from) AND " +
-//                    "   (CAST(:to AS timestamp) is null or c.created_at <= :to) ")
-//    List<Chat> findAll(Long userId,
-//                       String username,
-//                       Instant from,
-//                       Instant to);
+        @Query(nativeQuery = true,
+            value = "SELECT c.* " +
+                    "FROM public.chats c " +
+                    "   inner join public.users u on c.id = u.id " +
+                    "WHERE (:userId is null or c.id = :userId) AND " +
+                    "   (:username is null or u.username = :username) and " +
+                    "   (CAST(:from AS timestamp) is null or c.created_at >= :from) AND " +
+                    "   (CAST(:to AS timestamp) is null or c.created_at <= :to) ")
+    List<Chat> findAll(Long userId,
+                       String username,
+                       Instant from,
+                       Instant to);
 
 
     // same as above with JPA:

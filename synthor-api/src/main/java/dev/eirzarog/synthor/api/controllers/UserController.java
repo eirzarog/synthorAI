@@ -9,12 +9,14 @@ import dev.eirzarog.synthor.api.services.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,13 +35,17 @@ public class UserController {
         logger.debug("UserController initialized with UserService.");
     }
 
+    // GET http://localhost:8080/users/count?date=2025-09-13
+    @GetMapping("/users/count")
+    public Long countUsers(@RequestParam String date) {
+        return userService.getNewUserCountFromDate(date);
+    }
 
     // Avoiding endpoint returns simply List<User>
     // Jackson sees the User objects and thinks:
     // "I need to serialize everything, including orders and department"
     // This triggers additional database queries! Fixes N+1 queries
 
-    // Get all users, Authentication object as parameter we can make checks with the current login user
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(Authentication authentication) {
 

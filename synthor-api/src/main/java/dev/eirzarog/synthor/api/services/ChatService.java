@@ -4,28 +4,68 @@ package dev.eirzarog.synthor.api.services;
 import dev.eirzarog.synthor.api.entities.Chat;
 import dev.eirzarog.synthor.api.entities.Message;
 import dev.eirzarog.synthor.api.entities.User;
+import dev.eirzarog.synthor.api.entities.criteria.ChatCriteria;
+import dev.eirzarog.synthor.api.entities.dtos.ChatDTO;
+import dev.eirzarog.synthor.api.entities.dtos.mappers.ChatMapper;
+import dev.eirzarog.synthor.api.exceptions.GlobalException;
 import dev.eirzarog.synthor.api.repositories.ChatRepository;
 import dev.eirzarog.synthor.api.repositories.MessageRepository;
 import dev.eirzarog.synthor.api.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
 @Transactional
 public class ChatService {
-    @Autowired
-    private ChatRepository chatRepository;
+
+    private final ChatRepository chatRepository;
+    private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
+    private final ChatMapper chatMapper;
 
     @Autowired
-    private MessageRepository messageRepository;
+    public ChatService(ChatRepository chatRepository,
+                       MessageRepository messageRepository,
+                       UserRepository userRepositor,
+                       ChatMapper chatMapper)
+    {
+        this.chatRepository = chatRepository;
+        this.messageRepository = messageRepository;
+        this.userRepository = userRepositor;
+        this.chatMapper = chatMapper;
+    }
 
-    @Autowired
-    private UserRepository userRepository;
+    public List<ChatDTO> getAll(ChatCriteria criteria) throws GlobalException {
+
+        Instant twoYearsAgo = Instant.now().minusSeconds(60 * 60 * 24 * 365 * 2);
+
+        if (criteria.getFrom() != null && criteria.getFrom().isBefore(twoYearsAgo)) {
+            throw new GlobalException(HttpStatus.BAD_REQUEST,
+                    "The 'from' date cannot be more than two years ago.");
+        }
+
+        return chatRepository.findAll()
+                .stream()
+                .map(chatMapper::toDto)
+                .collect(Collectors.toList());
+
+
+    }
+
+
+
+
+
+
+
+
 /*
     // CORRECTED VERSION - handles Optional properly
     public void archiveChat(Long chatId) {
@@ -107,25 +147,5 @@ public class ChatService {
 
         chatRepository.save(chat);
     }*/
-   // private final ChatRepository chatRepository;
 
-//    @Autowired
-//    public ChatService(ChatRepository chatRepository) {
-//        this.chatRepository = chatRepository;
-//    }
-//
-//    public List<Chat> getAll(ChatCriteria criteria) throws GlobalException {
-//
-//        Instant twoYearsAgo = Instant.now().minusSeconds(60 * 60 * 24 * 365 * 2);
-//
-//        if (criteria.getFrom() != null && criteria.getFrom().isBefore(twoYearsAgo)) {
-//            throw new GlobalException(HttpStatus.BAD_REQUEST,
-//                    "The 'from' date cannot be more than two years ago.");
-//        }
-//
-//        return chatRepository.findAll(criteria.getUserId(),
-//               criteria.getUsername(),
-//               criteria.getFrom(),
-//                criteria.getTo());
-//    }
 }

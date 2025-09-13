@@ -1,6 +1,10 @@
 package dev.eirzarog.synthor.api.controllers;
 
+import dev.eirzarog.synthor.api.entities.Chat;
+import dev.eirzarog.synthor.api.entities.criteria.ChatCriteria;
+import dev.eirzarog.synthor.api.entities.dtos.ChatDTO;
 import dev.eirzarog.synthor.api.entities.dtos.responses.chat.ChatResponse;
+import dev.eirzarog.synthor.api.exceptions.GlobalException;
 import dev.eirzarog.synthor.api.services.ChatService;
 import dev.eirzarog.synthor.api.services.UserService;
 import org.slf4j.Logger;
@@ -12,14 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/chat")
+//@RequestMapping("/chat")
 public class ChatController {
 
-
-
     Logger logger = LoggerFactory.getLogger(ChatController.class);
-    // Example of circular dependency resolution using @Lazy
+    //    Example of circular dependency resolution using @Lazy
 //    private UserController userController;
 //
 //    @Autowired
@@ -45,17 +49,19 @@ public class ChatController {
         return null;
     }
 
-//    @GetMapping("/chats")
-//    public List<Chat> getAllChats(ChatCriteria criteria) throws GlobalException {
-//
-//        // validate that the login username is equal to the username
-//        // and get its own chat
-//        // τα κριτήρια που ζητάει ο χρήστης να περιλαμβάνουν το δικό του username
-//        // αν είναι admin δεν χρειάζεται να κάνουμε κανένα έλεγχο
-//
-//
-//        return chatService.getAll(criteria);
-//    }
+    @GetMapping("/chats")
+    public ResponseEntity<List<ChatDTO>> getAllChats(ChatCriteria criteria) throws GlobalException {
+
+        // validate that the login username is equal to the username
+        // and get its own chat
+        // τα κριτήρια που ζητάει ο χρήστης να περιλαμβάνουν το δικό του username
+        // αν είναι admin δεν χρειάζεται να κάνουμε κανένα έλεγχο
+
+
+        return ResponseEntity.ok(chatService.getAll(criteria));
+
+
+    }
 
 
 

@@ -2,9 +2,10 @@ package dev.eirzarog.synthor.api.services;
 
 import dev.eirzarog.synthor.api.entities.dtos.UserDTO;
 import dev.eirzarog.synthor.api.entities.dtos.mappers.UserMapper;
+import dev.eirzarog.synthor.api.entities.dtos.requests.user.CreateUserRequestDTO;
 import dev.eirzarog.synthor.api.exceptions.GlobalException;
 import dev.eirzarog.synthor.api.entities.User;
-import dev.eirzarog.synthor.api.entities.dtos.requests.user.CreateUserRequestDTO;
+
 import dev.eirzarog.synthor.api.entities.dtos.requests.user.UpdateUserRequestDTO;
 import dev.eirzarog.synthor.api.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -15,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,8 +60,26 @@ public class UserService   {
                 .collect(Collectors.toList());
     }
 
+//    public CreateUserRequestDTO createUser(CreateUserRequestDTO userDto) {
+//        User user = userMapper.toEntity(userDto);
+//        User savedUser = userRepository.save(user);
+//        return userMapper.toDto(savedUser);
+//    }
+
     public User getUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
+    }
+
+
+    public Long getNewUserCountFromDate(String dateString) {
+        try {
+            LocalDate localDate = LocalDate.parse(dateString); // ISO format
+            Instant startOfDay = localDate.atStartOfDay().toInstant(ZoneOffset.UTC);
+
+            return userRepository.countNewUsersFromDate(startOfDay);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid date format. Use yyyy-MM-dd");
+        }
     }
 
 //    public User createUser(CreateUserRequestDTO request) throws GlobalException {

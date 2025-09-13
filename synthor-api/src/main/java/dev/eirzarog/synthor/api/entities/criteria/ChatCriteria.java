@@ -1,6 +1,5 @@
 package dev.eirzarog.synthor.api.entities.criteria;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
