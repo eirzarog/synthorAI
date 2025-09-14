@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -62,11 +63,8 @@ public class UserService {  // UserDetailsService
         return !userRepository.existsByEmail(email);
     }
 
-    public List<UserDTO> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::toDto)
-                .collect(Collectors.toList());
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
 //    public CreateUserRequestDTO createUser(CreateUserRequestDTO userDto) {
@@ -226,10 +224,10 @@ public class UserService {  // UserDetailsService
 //    }
 
 
-//    public User getLoggedInUser(Authentication authentication) throws GlobalException {
-//        User loggedInUser = (User) authentication.getPrincipal();
-//        return loggedInUser;
-//    }
+    public User getLoggedInUser(Authentication authentication) throws GlobalException {
+        User loggedInUser = (User) authentication.getPrincipal();
+        return loggedInUser;
+    }
 
 
 

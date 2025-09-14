@@ -49,7 +49,7 @@ public class UserController {
     }
 
 
-    // JWT auth
+    // JWT auth creates a token
     @GetMapping("/login")
     public String login(Authentication authentication){
         User loggedInUser = (User) authentication.getPrincipal();
@@ -70,7 +70,6 @@ public class UserController {
         Jwt jwt = jwtEncoder.encode(JwtEncoderParameters.from(claimsSet));
 
         return jwt.getTokenValue();
-
     }
 
 //    // Basic auth
@@ -92,10 +91,7 @@ public class UserController {
 //    /users?username=eirzarog → filters by username
 //    /users?email=admin@example.com&username=bob → filters by both
     @GetMapping ("/users/filter")
-    public List<UserDTO> getUsersByCriteria(
-            @RequestParam(required = false) String username,
-            @RequestParam(required = false) String email
-    ) {
+    public List<UserDTO> getUsersByCriteria(@RequestParam(required = false) String username, @RequestParam(required = false) String email) {
         UserCriteria criteria = new UserCriteria();
         criteria.setUsername(username);
         criteria.setEmail(email);
@@ -115,7 +111,7 @@ public class UserController {
     // This triggers additional database queries! Fixes N+1 queries
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers(Authentication authentication) {
+    public ResponseEntity<List<User>> getAllUsers(Authentication authentication) {
 
         Object principal = authentication.getPrincipal();
         String username = principal instanceof Jwt jwt ? jwt.getSubject() : null;
@@ -125,8 +121,11 @@ public class UserController {
         User user = userService.getUserByUsername(username);
         if (user == null || user.getRole() != UserRole.ADMIN) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
-        return ResponseEntity.ok(userService.getAllUsers());
+        return ResponseEntity.ok(userService.getAll());
     }
+
+
+
 
 
     // Get user by username
