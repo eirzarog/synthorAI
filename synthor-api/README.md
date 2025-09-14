@@ -25,5 +25,5 @@ Audit Trail - Inherits from AuditableEntity for tracking changes
 Soft Delete - Users can be soft deleted instead of hard deleted
 
 The code follows Spring Boot best practices with proper validation, security, logging, 
-and error handling. All operations are properly secured with role-based access 
+and error handling. All operations are secured with role-based access 
 control.
