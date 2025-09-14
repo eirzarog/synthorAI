@@ -1,16 +1,16 @@
-The user operations includes:
+Synthor
 
 Key Components:
 
-User Entity - Complete user model with all necessary fields, relationships, and helper methods
+Entity Layer - Entities with all necessary fields, relationships, and helper methods
 Repository Layer - Both standard JPA methods and custom query implementations
 Service Layer - Comprehensive business logic for all user operations
 Controller Layer - RESTful endpoints with proper security annotations
-DTOs - Request/response objects for clean API contracts
+Public and Custom DTOs - Request/response objects for clean API contracts
 Mappers - MapStruct mapping between entities and DTOs
-Criteria - For flexible user searching and filtering
-Custom Exceptions - Specific exceptions for user-related errors
-Validators - Custom validation annotations and logic
+Custom Criteria - For flexible user searching and filtering
+Global Checked Exception Handling - Specific exceptions for user-related errors
+Custom Validators - Custom validation annotations and logic
 
 Key Features:
 
@@ -26,4 +26,4 @@ Soft Delete - Users can be soft deleted instead of hard deleted
 
 The code follows Spring Boot best practices with proper validation, security, logging, 
 and error handling. All operations are properly secured with role-based access 
-control and include comprehensive logging for monitoring and debugging.
+control.
