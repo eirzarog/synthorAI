@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 // CIRCULAR REFERENCE IN ENTITIES WITH @Data
-// PROBLEMATIC: This can cause infinite loops in toString(), equals(), hashCode()
+// This can cause infinite loops in toString(), equals(), hashCode()
 // DON'T USE @Data with bidirectional relationships
 
 // Bidirectional Relationships: Proper JPA relationships with helper methods
@@ -77,12 +77,13 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "version")
     private int version = 0;
 
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Chat> chats = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Message> messages = new ArrayList<>();
+//    If it is needed to declare the above relations it is important to  use UserDTO as input/output data in methods, overcomes the circular references and loops
+//    thanks to bidirectional relationships
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    private List<Chat> chats = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    private List<Message> messages = new ArrayList<>();
 
     public User(String username, String email) {
         this.username = username;

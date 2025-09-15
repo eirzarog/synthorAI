@@ -1,5 +1,6 @@
 package dev.eirzarog.synthor.api.controllers;
 
+
 import dev.eirzarog.synthor.api.entities.User;
 import dev.eirzarog.synthor.api.entities.criteria.UserCriteria;
 import dev.eirzarog.synthor.api.entities.dtos.UserDTO;
@@ -16,10 +17,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,23 +38,60 @@ public class UserController {
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
+    private final JwtEncoder jwtEncoder;
 
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtEncoder jwtEncoder) {
         this.userService = userService;
-        logger.debug("UserController initialized with UserService.");
+        this.jwtEncoder = jwtEncoder;
+        logger.debug("UserController initialized.");
     }
 
+
+    // JWT auth creates a token
+    @GetMapping("/login")
+    public String login(Authentication authentication){
+        User loggedInUser = (User) authentication.getPrincipal();
+
+
+        Instant now = Instant.now();
+
+        JwtClaimsSet claimsSet = JwtClaimsSet.builder()
+                .subject(loggedInUser.getUsername())
+                .issuer("http://localhost:8080")
+                .claim("role", loggedInUser.getRole())
+                .claim("email", loggedInUser.getEmail())
+                .claim("name", loggedInUser.getFirstName())
+                .issuedAt(now)
+                .expiresAt(now.plus(1, ChronoUnit.HOURS))
+                .build();
+
+        Jwt jwt = jwtEncoder.encode(JwtEncoderParameters.from(claimsSet));
+
+        return jwt.getTokenValue();
+    }
+
+//    // Basic auth
+//    @GetMapping("/login")
+//    public String login(Authentication authentication){
+//        User loggedInUser = (User) authentication.getPrincipal();
+//        Random r =  new Random();
+//        String strOptions = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//
+//        String randomKey = "";
+//
+//        for(int i=0; i<128; i++){
+//            randomKey += strOptions.charAt(r.nextInt(strOptions.length()));
+//        }
+//        return loggedInUser.getEmail() + randomKey;
+//    }
 
 
 //    /users?username=eirzarog → filters by username
 //    /users?email=admin@example.com&username=bob → filters by both
     @GetMapping ("/users/filter")
-    public List<UserDTO> getUsersByCriteria(
-            @RequestParam(required = false) String username,
-            @RequestParam(required = false) String email
-    ) {
+    public List<UserDTO> getUsersByCriteria(@RequestParam(required = false) String username, @RequestParam(required = false) String email) {
         UserCriteria criteria = new UserCriteria();
         criteria.setUsername(username);
         criteria.setEmail(email);
@@ -65,28 +110,23 @@ public class UserController {
     // "I need to serialize everything, including orders and department"
     // This triggers additional database queries! Fixes N+1 queries
 
-
-
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers(Authentication authentication) {
+    public ResponseEntity<List<User>> getAllUsers(Authentication authentication) {
 
-        // Get the username from the authentication object for the logged-in user
-       User loggedInUser = (User) authentication.getPrincipal();
+        Object principal = authentication.getPrincipal();
+        String username = principal instanceof Jwt jwt ? jwt.getSubject() : null;
 
-        // status code unauthorised 401, user not found
+        if (username == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
-        if (loggedInUser.getRole() != UserRole.ADMIN) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // status code forbidden 403
-        }
+        User user = userService.getUserByUsername(username);
+        if (user == null || user.getRole() != UserRole.ADMIN) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
-//      Did you JOIN FETCH a collection? Try adding DISTINCT.
-//      Are your relationships bidirectional? Break the loop with Jackson annotations.
-//      Consider switching to Set<> or returning DTOs for complete control.
-//      That combination will eliminate both the repeated rows on the JPA side and the nested loops on the JSON side.
-
-
-        return ResponseEntity.ok(userService.getAllUsers()); // status code ok 200
+        return ResponseEntity.ok(userService.getAll());
     }
+
+
+
+
 
     // Get user by username
     @GetMapping("users/{username}")

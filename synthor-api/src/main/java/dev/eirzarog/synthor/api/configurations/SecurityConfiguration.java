@@ -1,53 +1,52 @@
 package dev.eirzarog.synthor.api.configurations;
 
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.jwk.*;
+import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.security.interfaces.RSAPublicKey;
+import java.util.List;
+
 /*
-Enable http basic authentication
-All the  requests except login must be authenticated
-e.g. when someone uses get all users I need to know who is asking this - filterchain method
-spring security getting starting with basic auth - search on internet
-
-Authentication – Identifying the user. Example: logging in with username and password.
-Authorization – Giving permissions. Example: an admin can delete users, but a normal user cannot.
-
-Protection against common attacks – Such as CSRF (Cross-Site Request Forgery),
-XSS (Cross-Site Scripting), and session fixation.
-
-The best part is that Spring Security is highly customizable. You can use basic login forms,
-JWT (JSON Web Tokens), OAuth2, or even integrate with external systems like Google or Facebook login.
-
-
-AUTHORITIES => ARE USER ROLES
-
-
+ * Enable http basic authentication
+ * All the  requests except login must be authenticated
+ * e.g. when someone uses get all users I need to know who is asking this - filterChain method, Authentication object
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    //e.g. when someone uses get all users I need to know who is asking this - filterchain method
+    // When someone uses get all users I need to know who is asking utilizing filterChain method
     /*
     * CSRF stands for Cross-Site Request Forgery, and it's a sneaky type of cyberattack that exploits the trust a website has in a user's browser.
- What Happens in a CSRF Attack
-Imagine you're logged into your bank account in one browser tab. In another tab, you visit a malicious site.
-*  That site secretly sends a request to your bank—like transferring money—using your credentials,
-* because your browser automatically includes your session cookies. The bank thinks it's you making the request,
-* and boom: unauthorized action completed.
+    * What Happens in a CSRF Attack
+    * Imagine you're logged into your bank account in one browser tab. In another tab, you visit a malicious site.
+    * That site secretly sends a request to your bank—like transferring money—using your credentials,
+    * because your browser automatically includes your session cookies. The bank thinks it's you making the request,
+    * and boom: unauthorized action completed.
     *
-    * για να βρει τον χρήστη χρειαζεται ένα service που υλοποιεί loaduserbyusername which returns userdetails
+    * For finding a user needs a service implementing the method loadUserByUsername which returns UserDetails
     * */
 
-    //Define security rules
-    // Authentication request sends credentials (username, password) and authentication response sends back principal object (logging in user)
+    // Define security rules
+    // Authentication request sends credentials (username, password) and authentication response
+    // sends back principal object (logging in user)
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -57,7 +56,8 @@ Imagine you're logged into your bank account in one browser tab. In another tab,
                 )
                 .httpBasic(Customizer.withDefaults())
                 //.cors(Customizer.withDefaults())
-                //.oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()))
+                .oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()))
+//                .oauth2ResourceServer(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable()); // Disable CSRF
 
         return http.build();
@@ -71,37 +71,7 @@ Imagine you're logged into your bank account in one browser tab. In another tab,
     }
 
 
-
-/*
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000")); // your React dev server
-        config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setExposedHeaders(List.of("Authorization", "Content-Type"));
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
-// AuthenticationProvider for connection to databases
-// LdapAuthenticationProvider authenticates against an LDAP server
-// oauth2 google facebook
-// bearer token in the request header jwt
- */
-
-/* // it’s the bridge between Spring Security and user data using JWT, DaoAuthenticationProvider authenticates against a user database
-    @Bean
-    @Deprecated
-    public DaoAuthenticationProvider daoAuthenticationProvider(AuthService authService) {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(authService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
-    }
-
+    // Create asymmetric key JWK with RSA
     @Bean
     public JWKSource<SecurityContext> jwkSource() throws JOSEException {
         com.nimbusds.jose.jwk.RSAKey rsaJwk = new RSAKeyGenerator(2048)
@@ -114,12 +84,15 @@ Imagine you're logged into your bank account in one browser tab. In another tab,
         return new ImmutableJWKSet<>(jwkSet);
     }
 
-    // 2) Expose a JwtEncoder that will sign tokens with our JWK
+
+    // Expose a JwtEncoder that will sign tokens with our JWK
+    // Creates the JWT, particularly takes json and signs it
     @Bean
     public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
         return new NimbusJwtEncoder(jwkSource);
     }
 
+    // Takes the signature and verifies that it comes from JWK and responses with the payload of JWT
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) throws JOSEException {
         // 1) select the JWK with your key-ID
@@ -129,6 +102,7 @@ Imagine you're logged into your bank account in one browser tab. In another tab,
                         .keyUse(KeyUse.SIGNATURE)
                         .build()
         );
+
         // 2) query the source
         List<JWK> jwks = jwkSource.get(selector, null);
         if (jwks.isEmpty()) {
@@ -143,6 +117,35 @@ Imagine you're logged into your bank account in one browser tab. In another tab,
         return NimbusJwtDecoder.withPublicKey(publicKey).build();
     }
 
-   */
+
+
+/*  @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:3000")); // your React dev server
+        config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+
+    // AuthenticationProvider for connection to databases
+    // LdapAuthenticationProvider authenticates against an LDAP server
+    // oauth2 google facebook
+    // bearer token in the request header jwt
+
+    // it’s the bridge between Spring Security and user data using JWT, DaoAuthenticationProvider authenticates against a user database
+    @Bean
+    @Deprecated
+    public DaoAuthenticationProvider daoAuthenticationProvider(AuthService authService) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(authService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }*/
 
 }

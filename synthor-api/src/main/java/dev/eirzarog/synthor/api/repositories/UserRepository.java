@@ -1,6 +1,7 @@
 package dev.eirzarog.synthor.api.repositories;
 
 import dev.eirzarog.synthor.api.entities.User;
+import dev.eirzarog.synthor.api.entities.dtos.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

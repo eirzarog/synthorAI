@@ -16,6 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -29,7 +33,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 //@RequiredArgsConstructor is Lombok's auto injection for final fields
-public class UserService   {
+public class UserService {  // UserDetailsService
 
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -59,11 +63,8 @@ public class UserService   {
         return !userRepository.existsByEmail(email);
     }
 
-    public List<UserDTO> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::toDto)
-                .collect(Collectors.toList());
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
 //    public CreateUserRequestDTO createUser(CreateUserRequestDTO userDto) {
@@ -216,17 +217,17 @@ public class UserService   {
 */
 
 
-/*  @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getUserByUsername(username);
-        return user;
-    }
-*/
-
-//    public User getLoggedInUser(Authentication authentication) throws GlobalException {
-//        User loggedInUser = (User) authentication.getPrincipal();
-//        return loggedInUser;
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = getUserByUsername(username);
+//        return user;
 //    }
+
+
+    public User getLoggedInUser(Authentication authentication) throws GlobalException {
+        User loggedInUser = (User) authentication.getPrincipal();
+        return loggedInUser;
+    }
 
 
 
