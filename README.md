@@ -48,6 +48,8 @@ This project is an AI-powered RESTful API web services application built with Sp
 | ![Lombok](https://img.shields.io/badge/Lombok-FFA500?style=for-the-badge&logo=lombok&logoColor=white) | Annotation Processor | latest |
 | ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white) | API Testing Tool | latest |
 
+ 
+
 ### Frontend
 | Technology | Purpose | Version |
 |------------|---------|---------|
@@ -84,8 +86,8 @@ This project is an AI-powered RESTful API web services application built with Sp
 
 ### Configure PostgreSQL
 
-1. Create a database (e.g., synthor_db) and apply the migration scripts located in the migrations directory.
-2. Update src/main/resources/application.properties:
+- Create a database (e.g., synthor_db) and apply the migration scripts located in the migrations directory.
+- Update src/main/resources/application.properties:
 
 ```bash
 spring.datasource.url=jdbc:postgresql://localhost:5432/synthor_db
