@@ -40,8 +40,8 @@ This project is an AI-powered RESTful API web services application built with Sp
 | Technology | Purpose | Version |
 |------------|---------|---------|
 | ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=openjdk&logoColor=white) | Programming Language | 21 |
-| ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) | Backend Framework | 3.4.5 |
 | ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white) | Build & Dependency Management | Apache Maven |
+| ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) | Backend Framework | 3.4.5 |
 | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white) | Database | 42.7.3 |
 | ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white) | Token-Based Auth | 0.11.5 |
 | ![MapStruct](https://img.shields.io/badge/MapStruct-FF6F00?style=for-the-badge&logo=java&logoColor=white) | Object Mapping | 1.6.2 |
@@ -53,10 +53,11 @@ This project is an AI-powered RESTful API web services application built with Sp
 ### Frontend
 | Technology | Purpose | Version |
 |------------|---------|---------|
+| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | Programming Language | ES2023 |
+| ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white) | Package Manager | latest |
+| ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) | Frontend Framework | latest |
 | ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) | UI Framework | 18.2.0 |
 | ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white) | HTTP Client | latest |
-| ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) | Frontend Framework | latest |
-| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | Programming Language | ES2023 |
 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | Markup Language | 5 |
 | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Styling | 3 |
 | ![Flexbox](https://img.shields.io/badge/Flexbox-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Layout System | CSS3 |
@@ -82,7 +83,26 @@ This project is an AI-powered RESTful API web services application built with Sp
 
 ## Getting started
 
+### Prerequisites
+
+Make sure you have the following prerequisites installed:
+
+- Java JDK (at least Java 17)
+- Maven
+- postgreSQL
+- To run the frontend (React + Next.js), you need to install Node.js, which includes npm (Node Package Manager) on https://nodejs.org
+
 ### Backend Setup  
+```bash 
+# Navigate to project directory
+cd ./synthor-api
+
+# Build the project using Maven
+mvn clean install
+
+# Run the application
+mvn spring-boot:run
+```
 
 ### Configure PostgreSQL
 
@@ -94,14 +114,15 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/synthor_db
 spring.datasource.username=your_username
 spring.datasource.password=your_password
 ```
+- Make sure the database is running
 
 ### Frontend Setup  
-```bash
+```bash 
 # Clone the repository
 git clone https://github.com/eirzarog/synthorAI.git
 
 # Navigate to project directory
-cd frontend
+cd ./frontend
 
 # Install dependencies
 npm install
