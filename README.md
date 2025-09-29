@@ -104,7 +104,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-### Configure PostgreSQL
+### PostgreSQL Configuration
 
 - Create a database (e.g., synthor_db) and apply the migration scripts located in the migrations directory.
 - Update src/main/resources/application.properties:
