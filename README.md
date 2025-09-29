@@ -92,6 +92,11 @@ Make sure you have the following prerequisites installed:
 - postgreSQL
 - To run the frontend (React + Next.js), you need to install Node.js, which includes npm (Node Package Manager) from https://nodejs.org
 
+### Clone the Repository
+```bash
+git clone https://github.com/eirzarog/synthorAI.git
+```
+
 ### Backend Setup  
 ```bash 
 # Navigate to project directory
@@ -118,9 +123,6 @@ spring.datasource.password=your_password
 
 ### Frontend Setup  
 ```bash 
-# Clone the repository
-git clone https://github.com/eirzarog/synthorAI.git
-
 # Navigate to project directory
 cd ./frontend
 
