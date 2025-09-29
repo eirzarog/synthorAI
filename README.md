@@ -1,24 +1,43 @@
-# Synthor AI - A Chat GPT clone application 
+# Synthor - A Chat GPT clone application 
 
-A modern, AI-powered chat application with a sleek dark interface. Experience seamless conversations with advanced AI models in a responsive, user-friendly environment.
+Synthor is a modern, AI-powered chat application with a sleek dark interface. Experience seamless conversations with advanced AI models in a responsive, user-friendly environment. # Synthor AI – A ChatGPT Clone Application
+
+Synthor AI is a **monolithic RESTful API web services application** built with Spring Boot. It serves as the backend engine for a conversational AI platform, handling user authentication, message processing, data persistence, and secure communication through well-defined REST endpoints. The application follows a modular structure within a single deployable unit, making it easy to manage and scale vertically.
+
+Designed for clarity, performance, and extensibility, Synthor AI integrates PostgreSQL, Redis, JWT-based security, and supports modern development practices like MapStruct for object mapping and Lombok for boilerplate reduction.
 
 
 ## Screenshots
 
-### Desktop Interface   
-<div align="center"><img width="1350" height="821" alt="MainPage" src="https://github.com/user-attachments/assets/74adf7a4-636a-4c32-a1a4-e25f41665bcd" />
-<i>Main chat interface with sidebar navigation and conversation area</i>
+### Desktop Interface  
+<div align="center">
+  <img width="1361" height="825" alt="Navbar" src="https://github.com/user-attachments/assets/92d793dd-7033-491a-99d2-819d4c558805" />
+  <i>Main chat interface</i>
 </div>
 
 ### User Authentication
-<div align="center"><img width="1357" height="824" alt="LogIn" src="https://github.com/user-attachments/assets/4964ac6d-9871-4758-bb24-2b0955c5a531" />
-<i>User login form</i></div><br><br>
-<div align="center"><img width="1357" height="821" alt="SignUp" src="https://github.com/user-attachments/assets/557fd595-59ad-4911-9138-e6ac103e229b" />
-<i>User registration form</i></div>
+<div align="center">
+  <img width="1357" height="824" alt="LogIn" src="https://github.com/user-attachments/assets/4964ac6d-9871-4758-bb24-2b0955c5a531" />
+  <i>Login form</i>
+</div>
+<br><br>
+<div align="center">
+  <img width="1357" height="821" alt="SignUp" src="https://github.com/user-attachments/assets/557fd595-59ad-4911-9138-e6ac103e229b" />
+  <i>Registration form</i>
+</div>
 
-### Settings configuration
-<div align="center"><img width="1354" height="820" alt="Settings" src="https://github.com/user-attachments/assets/ffec852c-a973-45af-9bc4-dd5b3d7f0a7c" />
-<i>Settings modal with account management and security options</i></div><br>
+### Profile Modal
+<div align="center">
+  <img width="1350" height="821" alt="MainPage" src="https://github.com/user-attachments/assets/74adf7a4-636a-4c32-a1a4-e25f41665bcd" />
+  <i>Modal menu for user settings and logout option</i>
+</div>
+<br><br>
+<div align="center">
+  <img width="1354" height="820" alt="Settings" src="https://github.com/user-attachments/assets/ffec852c-a973-45af-9bc4-dd5b3d7f0a7c" />
+  <i>Settings modal with account management and security options</i>
+</div>
+<br>
+
 
 
 ## Tech Stack
@@ -26,6 +45,7 @@ A modern, AI-powered chat application with a sleek dark interface. Experience se
 ### Backend
 | Technology | Purpose | Version |
 |------------|---------|---------|
+
 | ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=openjdk&logoColor=white) | Programming Language | 21 |
 | ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) | Backend Framework | 3.4.5 |
 | ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white) | Build & Dependency Management | Apache Maven |
@@ -39,6 +59,8 @@ A modern, AI-powered chat application with a sleek dark interface. Experience se
 | Technology | Purpose | Version |
 |------------|---------|---------|
 | ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) | UI Framework | 18.2.0 |
+| ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white) | HTTP Client | latest |
+| ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) | Frontend Framework | latest |
 | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | Programming Language | ES2023 |
 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | Markup Language | 5 |
 | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Styling | 3 |
