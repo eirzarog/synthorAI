@@ -10,15 +10,17 @@ A modern, AI-powered chat application with a sleek dark interface. Experience se
 <i>*Main chat interface showing the dark theme with sidbar navigation and conversation area*</i>
 </div>
 
+### Authentication Flow
+<div align="center"><img width="1357" height="824" alt="LogIn" src="https://github.com/user-attachments/assets/4964ac6d-9871-4758-bb24-2b0955c5a531" />
+<i>*Login authentication system*</i></div>
+
+<div align="center"><img width="1357" height="821" alt="SignUp" src="https://github.com/user-attachments/assets/557fd595-59ad-4911-9138-e6ac103e229b" />
+<i>*Regsitration form*</i></div>
+
 ### Settings configuration panel
 <div align="center"><img width="1354" height="820" alt="Settings" src="https://github.com/user-attachments/assets/ffec852c-a973-45af-9bc4-dd5b3d7f0a7c" />
 <i>*Settings modal with account management and security options*</i></div>
 
-### Authentication Flow
-<div align="center"><img width="1357" height="824" alt="LogIn" src="https://github.com/user-attachments/assets/4964ac6d-9871-4758-bb24-2b0955c5a531" />
-<i>*Login authentication system*</i></div>
-<div align="center"><img width="1357" height="821" alt="SignUp" src="https://github.com/user-attachments/assets/557fd595-59ad-4911-9138-e6ac103e229b" />
-<i>*Regsitration form*</i></div>
 
 
 ## Tech Stack
