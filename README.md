@@ -61,24 +61,30 @@ This project is an AI-powered RESTful API web services application built with Sp
 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | Markup Language | 5 |
 | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Styling | 3 |
 | ![Flexbox](https://img.shields.io/badge/Flexbox-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Layout System | CSS3 |
+<br>
 
+## 🚀 Project Features 
 
-## Features Breakdown
+### Backend Features
+- **Layerd design architecture:**  Modular design for maintainability and scalability with controllers managing requests, services implementing business logic, and repositories handling data persistence.
+- **CRUD Operations:** Full Create, Read, Update, Delete support for core entities
+- **Validation:** Input validation to ensure data integrity and prevent errors
+- **Database Design:** Well-structured schema supporting efficient data operations
+- **Authentication & Authorization:** Secure user access with JWT tokens and Basic Auth
+- **Role-Based Access Control (RBAC):** Ensures that users can only perform actions permitted by their role, enhancing security and compliance.
+- **JPA (Java Persistence API):** Simplifies database interactions and ORM with entity mapping
+- **Audit Fields:** Tracks creation and update timestamps automatically 
+- **Exception Handling:** Global and custom exception handlers for robust error management
+- **DTOs & Criteria:** Data Transfer Objects and criteria-based querying for flexible data retrieval 
+- **CORS Handling:** Cross-Origin Resource Sharing configured for frontend-backend communication 
 
-### Core Functionality
-- [x] **Chat Interface** - Real-time messaging with AI
-- [x] **User Authentication** - Login/logout with persistence
-- [x] **Profile Management** - User settings and preferences
-- [x] **Conversation History** - Message storage and retrieval
-- [x] **Responsive Design** - Mobile and desktop optimization
-- [x] **Dark Theme** - Modern, eye-friendly interface
-
-### Advanced Features
-- [x] **Modal System** - Reusable modal components
-- [x] **File Upload** - Profile picture management
-- [x] **Form Validation** - Client-side input validation
-- [x] **Session Management** - Persistent login state
-- [x] **Error Handling** - Graceful error states
+### Frontend Features
+- **Backend-for-Frontend Components:** UI components tailored for seamless backend integration
+- **Axios HTTP Requests:** Efficient HTTP client for API communication
+- **Layout & Styling:** Responsive and user-friendly interface design
+- **Validation:** Frontend input checks to enhance user experience and reduce invalid requests
+- **File Handling:** Support for file uploads and management
+- **DOM Manipulation:** Dynamic UI updates and interactivity
 
 
 ## Getting started
