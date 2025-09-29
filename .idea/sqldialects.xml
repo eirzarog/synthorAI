@@ -6,9 +6,6 @@
     <file url="file://$PROJECT_DIR$/synthor-api/src/main/resources/migrations/V0002_Create_Chats_Table.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/synthor-api/src/main/resources/migrations/V0003_Create_Messages_Table.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/synthor-api/src/main/resources/migrations/V0004_Create_Models_Table.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/synthor-api/src/main/resources/migrations/V0005_Create_Subscriptions_Table.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/synthor-api/src/main/resources/migrations/V0006_Create_Message_Attachments_Table.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/synthor-api/src/main/resources/migrations/test.sql" dialect="PostgreSQL" />
     <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>

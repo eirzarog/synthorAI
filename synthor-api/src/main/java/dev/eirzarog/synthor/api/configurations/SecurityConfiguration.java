@@ -7,8 +7,10 @@ import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import dev.eirzarog.synthor.api.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,34 +21,32 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.security.interfaces.RSAPublicKey;
 import java.util.List;
 
-/*
- * Enable http basic authentication
- * All the  requests except login must be authenticated
- * e.g. when someone uses get all users I need to know who is asking this - filterChain method, Authentication object
- */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    // When someone uses get all users I need to know who is asking utilizing filterChain method
-    /*
-    * CSRF stands for Cross-Site Request Forgery, and it's a sneaky type of cyberattack that exploits the trust a website has in a user's browser.
-    * What Happens in a CSRF Attack
-    * Imagine you're logged into your bank account in one browser tab. In another tab, you visit a malicious site.
-    * That site secretly sends a request to your bank—like transferring money—using your credentials,
-    * because your browser automatically includes your session cookies. The bank thinks it's you making the request,
-    * and boom: unauthorized action completed.
-    *
-    * For finding a user needs a service implementing the method loadUserByUsername which returns UserDetails
-    * */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:3000")); // your React dev server
+        config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowCredentials(true);
 
-    // Define security rules
-    // Authentication request sends credentials (username, password) and authentication response
-    // sends back principal object (logging in user)
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -118,34 +118,14 @@ public class SecurityConfiguration {
     }
 
 
-
-/*  @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000")); // your React dev server
-        config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setExposedHeaders(List.of("Authorization", "Content-Type"));
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
-
-    // AuthenticationProvider for connection to databases
-    // LdapAuthenticationProvider authenticates against an LDAP server
-    // oauth2 google facebook
-    // bearer token in the request header jwt
-
     // it’s the bridge between Spring Security and user data using JWT, DaoAuthenticationProvider authenticates against a user database
     @Bean
     @Deprecated
-    public DaoAuthenticationProvider daoAuthenticationProvider(AuthService authService) {
+    public DaoAuthenticationProvider daoAuthenticationProvider(UserService userService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(authService);
+        provider.setUserDetailsService(userService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
-    }*/
+    }
 
 }

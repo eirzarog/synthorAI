@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 //@RequiredArgsConstructor is Lombok's auto injection for final fields
-public class UserService {  // UserDetailsService
+public class UserService implements UserDetailsService{  // UserDetailsService
 
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -216,19 +216,16 @@ public class UserService {  // UserDetailsService
     }
 */
 
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = getUserByUsername(username);
-//        return user;
-//    }
-
-
     public User getLoggedInUser(Authentication authentication) throws GlobalException {
         User loggedInUser = (User) authentication.getPrincipal();
         return loggedInUser;
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = getUserByUsername(username);
 
+        return user;
+    }
 }
