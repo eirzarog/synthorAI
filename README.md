@@ -63,7 +63,7 @@ This project is an AI-powered RESTful API web services application built with Sp
 | ![Flexbox](https://img.shields.io/badge/Flexbox-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Layout System | CSS3 |
 <br>
 
-## 🚀 Project Features 
+## Project Features 
 
 ### Backend Features
 - **Layerd design architecture:**  Modular design for maintainability and scalability with controllers managing requests, services implementing business logic, and repositories handling data persistence.
