@@ -79,7 +79,7 @@ This project is an AI-powered RESTful API web services application built with Sp
 ### Frontend Features
 - **Backend-for-Frontend Components:** UI components tailored for seamless backend integration
 - **Axios HTTP Requests:** Efficient HTTP client for API communication
-- **DOM Manipulation:** Dynamic UI updates and interactivity- 
+- **DOM Manipulation:** Dynamic UI updates and interactivity 
 - **Validation:** Frontend input checks to enhance user experience and reduce invalid requests
 - **File Handling:** Support for file uploads and management
 - **Layout & Styling:** Responsive and user-friendly interface design
