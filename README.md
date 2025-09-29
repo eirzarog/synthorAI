@@ -15,7 +15,8 @@ This project is an AI-powered RESTful API web services application built with Sp
   <img width="1357" height="824" alt="LogIn" src="https://github.com/user-attachments/assets/4964ac6d-9871-4758-bb24-2b0955c5a531" />
   <i>Login form</i>
 </div>
-<br><br>
+<br>
+<br>
 <div align="center">
   <img width="1357" height="821" alt="SignUp" src="https://github.com/user-attachments/assets/557fd595-59ad-4911-9138-e6ac103e229b" />
   <i>Registration form</i>
@@ -33,7 +34,6 @@ This project is an AI-powered RESTful API web services application built with Sp
 </div>
 <br>
 
-
 ## Tech Stack
 
 ### Backend
@@ -47,8 +47,6 @@ This project is an AI-powered RESTful API web services application built with Sp
 | ![MapStruct](https://img.shields.io/badge/MapStruct-FF6F00?style=for-the-badge&logo=java&logoColor=white) | Object Mapping | 1.6.2 |
 | ![Lombok](https://img.shields.io/badge/Lombok-FFA500?style=for-the-badge&logo=lombok&logoColor=white) | Annotation Processor | latest |
 | ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white) | API Testing Tool | latest |
-
- 
 
 ### Frontend
 | Technology | Purpose | Version |
@@ -81,11 +79,10 @@ This project is an AI-powered RESTful API web services application built with Sp
 ### Frontend Features
 - **Backend-for-Frontend Components:** UI components tailored for seamless backend integration
 - **Axios HTTP Requests:** Efficient HTTP client for API communication
-- **Layout & Styling:** Responsive and user-friendly interface design
+- **DOM Manipulation:** Dynamic UI updates and interactivity- 
 - **Validation:** Frontend input checks to enhance user experience and reduce invalid requests
 - **File Handling:** Support for file uploads and management
-- **DOM Manipulation:** Dynamic UI updates and interactivity
-
+- **Layout & Styling:** Responsive and user-friendly interface design
 
 ## Getting started
 
