@@ -97,6 +97,16 @@ Make sure you have the following prerequisites installed:
 git clone https://github.com/eirzarog/synthorAI.git
 ```
 
+### PostgreSQL Configuration
+- Create a database (e.g., synthor_db) and apply the migration scripts located in the migrations directory.
+- Update src/main/resources/application.properties:
+```bash
+spring.datasource.url=jdbc:postgresql://localhost:5432/synthor_db
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+```
+- Make sure the database is running
+
 ### Backend Setup  
 ```bash 
 # Navigate to project directory
@@ -108,18 +118,6 @@ mvn clean install
 # Run the application
 mvn spring-boot:run
 ```
-
-### PostgreSQL Configuration
-
-- Create a database (e.g., synthor_db) and apply the migration scripts located in the migrations directory.
-- Update src/main/resources/application.properties:
-
-```bash
-spring.datasource.url=jdbc:postgresql://localhost:5432/synthor_db
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-```
-- Make sure the database is running
 
 ### Frontend Setup  
 ```bash 
