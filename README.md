@@ -5,7 +5,7 @@ A modern, AI-powered chat application with a sleek dark interface. Experience se
 ## Screenshots
 
 ### Desktop Interface 
-
+<div align="center"><img width="1350" height="821" alt="MainPage" src="https://github.com/user-attachments/assets/74adf7a4-636a-4c32-a1a4-e25f41665bcd/main.jpg"  alt="Desktop Screenshot" width="280"/>
 <div align="center"><img width="1350" height="821" alt="MainPage" src="https://github.com/user-attachments/assets/74adf7a4-636a-4c32-a1a4-e25f41665bcd"  alt="Desktop Screenshot" width="280"/>
 <i>*Main chat interface showing the dark theme with sidbar navigation and conversation area*</i>
 </div>
@@ -17,7 +17,7 @@ A modern, AI-powered chat application with a sleek dark interface. Experience se
 <div align="center"><img width="1357" height="821" alt="SignUp" src="https://github.com/user-attachments/assets/557fd595-59ad-4911-9138-e6ac103e229b" />
 <i>*Regsitration form*</i></div>
 
-### Settings configuration panel
+### Settings configuration
 <div align="center"><img width="1354" height="820" alt="Settings" src="https://github.com/user-attachments/assets/ffec852c-a973-45af-9bc4-dd5b3d7f0a7c" />
 <i>*Settings modal with account management and security options*</i></div>
 
@@ -37,47 +37,9 @@ A modern, AI-powered chat application with a sleek dark interface. Experience se
 | ![Flexbox](https://img.shields.io/badge/Flexbox-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Layout System | CSS3 |
 
  
- 
 
-## Architecture
 
-### Project Structure
-```
-synthor-chat/
-├── src/
-│   ├── components/
-│   │   ├── Chat/
-│   │   │   ├── ChatWindow.js
-│   │   │   ├── MessageBubble.js
-│   │   │   └── InputArea.js
-│   │   ├── Sidebar/
-│   │   │   ├── Sidebar.js
-│   │   │   └── ConversationList.js
-│   │   ├── Modals/
-│   │   │   ├── AuthModal.js
-│   │   │   ├── ProfileModal.js
-│   │   │   └── SettingsModal.js
-│   │   └── Common/
-│   │       ├── Navbar.js
-│   │       └── Footer.js
-│   ├── hooks/
-│   │   ├── useAuth.js
-│   │   ├── useLocalStorage.js
-│   │   └── useChat.js
-│   ├── utils/
-│   │   ├── storage.js
-│   │   └── helpers.js
-│   ├── styles/
-│   │   ├── globals.css
-│   │   ├── components.css
-│   │   └── themes.css
-│   └── App.js
-├── public/
-├── package.json
-└── README.md
-```
-
-## 📊 Features Breakdown
+## Features Breakdown
 
 ### Core Functionality
 - [x] **Chat Interface** - Real-time messaging with AI
@@ -131,38 +93,4 @@ npm run build
 # Run production build locally
 npm run preview
 ```
-
-### Environment Setup
-```bash
-# Copy environment template
-cp .env.example .env.local
-
-# Add your API keys and configuration
-REACT_APP_API_URL=http://localhost:3001
-REACT_APP_AI_MODEL=gpt-3.5-turbo
-```
- 
-## 🔧 Configuration
-
-### Customization Options
-```javascript
-// src/config/app.js
-export const APP_CONFIG = {
-  theme: 'dark',
-  sidebar: {
-    width: '280px',
-    collapsible: true
-  },
-  chat: {
-    maxMessages: 100,
-    autoScroll: true,
-    messageDelay: 600
-  },
-  auth: {
-    persistSession: true,
-    sessionTimeout: 24 // hours
-  }
-};
-```
- 
 
