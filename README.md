@@ -65,24 +65,24 @@ This project is an AI-powered RESTful API web services application built with Sp
 
 ### Backend Features
 - **Layerd design architecture:**  Modular design for maintainability and scalability with controllers managing requests, services implementing business logic, and repositories handling data persistence.
-- **CRUD Operations:** Full Create, Read, Update, Delete support for core entities
-- **Validation:** Input validation to ensure data integrity and prevent errors
-- **Database Design:** Well-structured schema supporting efficient data operations
-- **Authentication & Authorization:** Secure user access with JWT tokens and Basic Auth
+- **CRUD Operations:** Full Create, Read, Update, Delete support for core entities.
+- **Validation:** Input validation to ensure data integrity and prevent errors.
+- **Database Design:** Well-structured schema supporting efficient data operations.
+- **Authentication & Authorization:** Secure user access with JWT tokens and Basic Auth.
 - **Role-Based Access Control (RBAC):** Ensures that users can only perform actions permitted by their role, enhancing security and compliance.
-- **JPA (Java Persistence API):** Simplifies database interactions and ORM with entity mapping
-- **Audit Fields:** Tracks creation and update timestamps automatically 
-- **Exception Handling:** Global and custom exception handlers for robust error management
-- **DTOs & Criteria:** Data Transfer Objects and criteria-based querying for flexible data retrieval 
-- **CORS Handling:** Cross-Origin Resource Sharing configured for frontend-backend communication 
+- **JPA (Java Persistence API):** Simplifies database interactions and ORM with entity mapping.
+- **Audit Fields:** Tracks creation and update timestamps automatically. 
+- **Exception Handling:** Global and custom exception handlers for robust error management.
+- **DTOs & Criteria:** Data Transfer Objects and criteria-based querying for flexible data retrieval. 
+- **CORS Handling:** Cross-Origin Resource Sharing configured for frontend-backend communication. 
 
 ### Frontend Features
-- **Backend-for-Frontend Components:** UI components tailored for seamless backend integration
-- **Axios HTTP Requests:** Efficient HTTP client for API communication
-- **DOM Manipulation:** Dynamic UI updates and interactivity 
-- **Validation:** Frontend input checks to enhance user experience and reduce invalid requests
-- **File Handling:** Support for file uploads and management
-- **Layout & Styling:** Responsive and user-friendly interface design
+- **Backend-for-Frontend Components:** UI components tailored for seamless backend integration.
+- **Axios HTTP Requests:** Efficient HTTP client for API communication.
+- **DOM Manipulation:** Dynamic UI updates and interactivity. 
+- **Validation:** Frontend input checks to enhance user experience and reduce invalid requests.
+- **File Handling:** Support for file uploads and management.
+- **Layout & Styling:** Responsive and user-friendly interface design.
 
 ## Getting started
 
@@ -101,7 +101,7 @@ git clone https://github.com/eirzarog/synthorAI.git
 ```
 
 ### PostgreSQL Configuration
-- Create a database (e.g., synthor_db) and apply the migration scripts located in the migrations directory.
+- Create a database (e.g., synthor_db) and apply the migration scripts located in the migrations directory
 - Update src/main/resources/application.properties:
 ```bash
 spring.datasource.url=jdbc:postgresql://localhost:5432/synthor_db
