@@ -37,9 +37,7 @@ A modern, AI-powered chat application with a sleek dark interface. Experience se
  
  
 
-## 🏗️ Architecture
-
-![Architecture Diagram](https://via.placeholder.com/900x600/7c3aed/ffffff?text=Component+Architecture+%26+Data+Flow)
+## Architecture
 
 ### Project Structure
 ```
@@ -77,33 +75,25 @@ synthor-chat/
 └── README.md
 ```
 
-### Component Hierarchy
-- **App** (Root Container with Flexbox Layout)
-  - **Sidebar** (Fixed width, vertical flex)
-    - Navigation Items
-    - Conversation History
-    - Upgrade Button
-  - **Main Content** (Flex: 1, vertical layout)
-    - **Navbar** (Model selector, Auth controls)
-    - **Chat Container** (Flex: 1, scrollable)
-      - Message History
-      - Input Area
-    - **Footer** (Fixed height, legal links)
+## 📊 Features Breakdown
 
-## ✨ Key Features
+### Core Functionality
+- [x] **Chat Interface** - Real-time messaging with AI
+- [x] **User Authentication** - Login/logout with persistence
+- [x] **Profile Management** - User settings and preferences
+- [x] **Conversation History** - Message storage and retrieval
+- [x] **Responsive Design** - Mobile and desktop optimization
+- [x] **Dark Theme** - Modern, eye-friendly interface
 
-- 🎨 **Modern Dark Theme** - Carefully crafted dark UI with excellent contrast
-- 📱 **Fully Responsive** - Seamless experience across desktop, tablet, and mobile
-- 🔐 **Authentication System** - Secure login/logout with persistent sessions
-- 🗂️ **Conversation Management** - Organized chat history and session management
-- ⚙️ **Advanced Settings** - Comprehensive user profile and security settings
-- 🔄 **State Persistence** - LocalStorage integration for seamless user experience
-- 
-## 🎨 Design System
+### Advanced Features
+- [x] **Modal System** - Reusable modal components
+- [x] **File Upload** - Profile picture management
+- [x] **Form Validation** - Client-side input validation
+- [x] **Session Management** - Persistent login state
+- [x] **Accessibility** - Keyboard navigation and ARIA labels
+- [x] **Error Handling** - Graceful error states
 
-### Layout System
-- **Flexbox-based** responsive grid
-
+ 
 ## Quick Start
 
 ### Prerequisites
@@ -173,22 +163,4 @@ export const APP_CONFIG = {
 };
 ```
  
-## 📊 Features Breakdown
 
-### Core Functionality
-- [x] **Chat Interface** - Real-time messaging with AI
-- [x] **User Authentication** - Login/logout with persistence
-- [x] **Profile Management** - User settings and preferences
-- [x] **Conversation History** - Message storage and retrieval
-- [x] **Responsive Design** - Mobile and desktop optimization
-- [x] **Dark Theme** - Modern, eye-friendly interface
-
-### Advanced Features
-- [x] **Modal System** - Reusable modal components
-- [x] **File Upload** - Profile picture management
-- [x] **Form Validation** - Client-side input validation
-- [x] **Session Management** - Persistent login state
-- [x] **Accessibility** - Keyboard navigation and ARIA labels
-- [x] **Error Handling** - Graceful error states
-
- 
