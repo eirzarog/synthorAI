@@ -1,11 +1,6 @@
 # Synthor - A Chat GPT clone application 
 
-Synthor is a modern, AI-powered chat application with a sleek dark interface. Experience seamless conversations with advanced AI models in a responsive, user-friendly environment. # Synthor AI – A ChatGPT Clone Application
-
-Synthor AI is a **monolithic RESTful API web services application** built with Spring Boot. It serves as the backend engine for a conversational AI platform, handling user authentication, message processing, data persistence, and secure communication through well-defined REST endpoints. The application follows a modular structure within a single deployable unit, making it easy to manage and scale vertically.
-
-Designed for clarity, performance, and extensibility, Synthor AI integrates PostgreSQL, Redis, JWT-based security, and supports modern development practices like MapStruct for object mapping and Lombok for boilerplate reduction.
-
+Synthor is a modern, AI-powered chat application with a sleek dark interface. Experience seamless conversations with advanced AI models in a responsive, user-friendly environment.
 
 ## Screenshots
 
@@ -37,7 +32,6 @@ Designed for clarity, performance, and extensibility, Synthor AI integrates Post
   <i>Settings modal with account management and security options</i>
 </div>
 <br>
-
 
 
 ## Tech Stack
