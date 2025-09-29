@@ -5,7 +5,7 @@ A modern, AI-powered chat application with a sleek dark interface. Experience se
 ## Screenshots
 
 ### Desktop Interface 
-<div align="center"><img width="1350" height="821" alt="MainPage" src="https://github.com/user-attachments/assets/74adf7a4-636a-4c32-a1a4-e25f41665bcd/main.jpg"  alt="Desktop Screenshot" width="280"/>
+<div align="center"><img width="1350" height="821" alt="MainPage" src="https://github.com/user-attachments/assets/74adf7a4-636a-4c32-a1a4-e25f41665bcd.png"  alt="Desktop Screenshot" width="280"/>
 <div align="center"><img width="1350" height="821" alt="MainPage" src="https://github.com/user-attachments/assets/74adf7a4-636a-4c32-a1a4-e25f41665bcd"  alt="Desktop Screenshot" width="280"/>
 <i>*Main chat interface showing the dark theme with sidbar navigation and conversation area*</i>
 </div>
