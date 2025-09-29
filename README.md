@@ -45,7 +45,6 @@ Designed for clarity, performance, and extensibility, Synthor AI integrates Post
 ### Backend
 | Technology | Purpose | Version |
 |------------|---------|---------|
-
 | ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=openjdk&logoColor=white) | Programming Language | 21 |
 | ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) | Backend Framework | 3.4.5 |
 | ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white) | Build & Dependency Management | Apache Maven |
