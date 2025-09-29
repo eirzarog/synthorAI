@@ -1,6 +1,6 @@
 # Synthor - A Chat GPT clone application 
 
-Synthor is a modern, AI-powered chat application with a sleek dark interface. Experience seamless conversations with advanced AI models in a responsive, user-friendly environment.
+This project is an AI-powered RESTful API web services application built with Spring Boot (backend) and React/Next.js (frontend). 
 
 ## Screenshots
 
@@ -77,40 +77,40 @@ Synthor is a modern, AI-powered chat application with a sleek dark interface. Ex
 - [x] **Session Management** - Persistent login state
 - [x] **Error Handling** - Graceful error states
 
- 
-## Quick Start
 
-### Prerequisites
+## Getting started
+
+### Backend Setup  
+
+### Configure PostgreSQL
+
+1. Create a database (e.g., synthor_db) and apply the migration scripts located in the migrations directory.
+2. Update src/main/resources/application.properties:
+
 ```bash
-node >= 16.0.0
-npm >= 8.0.0
-Modern web browser (Chrome, Firefox, Safari, Edge)
+spring.datasource.url=jdbc:postgresql://localhost:5432/synthor_db
+spring.datasource.username=your_username
+spring.datasource.password=your_password
 ```
 
-### Installation
+### Frontend Setup  
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/synthor-chat.git
+git clone https://github.com/eirzarog/synthorAI.git
 
 # Navigate to project directory
-cd synthor-chat
+cd frontend
 
 # Install dependencies
 npm install
 
-# Start development server
-npm start
-```
-
-### Development Server
-```bash
 # Run in development mode
 npm run dev
+```   
 
-# Build for production
-npm run build
+### Access the app
+Backend API: http://localhost:8080<br>
+Frontend: http://localhost:3000
 
-# Run production build locally
-npm run preview
-```
+ 
 
