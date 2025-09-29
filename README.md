@@ -90,7 +90,7 @@ Make sure you have the following prerequisites installed:
 - Java JDK (at least Java 17)
 - Maven
 - postgreSQL
-- To run the frontend (React + Next.js), you need to install Node.js, which includes npm (Node Package Manager) on https://nodejs.org
+- To run the frontend (React + Next.js), you need to install Node.js, which includes npm (Node Package Manager) from https://nodejs.org
 
 ### Backend Setup  
 ```bash 
